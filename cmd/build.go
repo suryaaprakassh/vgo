@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"os/exec"
 
 	"github.com/charmbracelet/huh/spinner"
@@ -22,7 +23,8 @@ var buildCmd = &cobra.Command{
 			Action(func() {
 				_, err := exec.Command("go", "build").Output()
 				if err != nil {
-					cmd.Printf("%s Error : Failed to update the vgo tool", asset.EmojiError)
+					cmd.Println(asset.Text.Foreground(asset.Red).
+						Render(fmt.Sprintf("%s Error : Failed to update the vgo tool", asset.EmojiError)))
 					return
 				}
 				cmd.Printf("%s Built", asset.EmojiTick)
@@ -37,7 +39,8 @@ var buildCmd = &cobra.Command{
 			Action(func() {
 				_, err := exec.Command("go", "install").Output()
 				if err != nil {
-					cmd.Printf("%s Error : Failed to update the vgo tool", asset.EmojiError)
+					cmd.Println(asset.Text.Foreground(asset.Red).
+						Render(fmt.Sprintf("%s Error : Failed to update the vgo tool", asset.EmojiError)))
 					return
 				}
 				cmd.Printf("%s Installed", asset.EmojiTick)
